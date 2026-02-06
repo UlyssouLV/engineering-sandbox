@@ -9,35 +9,7 @@ tasks = [
         "date_creation": "2026-01-20",
         "deadline": "2026-02-07",
         "rappel": 60,
-    },
-    {
-        "title": "Finish Python homework",
-        "done": True,
-        "date_creation": "2026-01-15",
-        "deadline": "2026-01-25",
-        "rappel": 120,
-    },
-    {
-        "title": "Clean the room",
-        "done": False,
-        "date_creation": "2026-02-01",
-        "deadline": "2026-02-05",
-        "rappel": 30,
-    },
-    {
-        "title": "Read 20 pages",
-        "done": False,
-        "date_creation": "2026-02-03",
-        "deadline": "2026-02-10",
-        "rappel": 15,
-    },
-    {
-        "title": "Call mom",
-        "done": True,
-        "date_creation": "2026-01-28",
-        "deadline": "2026-01-28",
-        "rappel": 10,
-    },
+    }
 ]
 
 running = True

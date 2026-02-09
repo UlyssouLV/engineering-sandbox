@@ -31,8 +31,7 @@
         </table>
 
         <!-- GUI addition: manual confirmation after Moodle 2FA -->
-        <button onclick="confirmLogin()">Continue after login</button>
-
+        <button id="btnConfirm" onclick="confirmLogin()" style="display:none;">Continue after login</button>
 
         <script>
             // GUI addition: calls a Python method via pywebview API
@@ -53,6 +52,11 @@
 
                 const timer = setInterval(async () => {
                     const status = await window.pywebview.api.get_status();
+                    // Show the confirmation button only when backend requests it.
+                    const btnConfirm = document.getElementById("btnConfirm");
+                    if (btnConfirm) {
+                    btnConfirm.style.display = status.login_required ? "inline-block" : "none";
+                    }
                     logsEl.textContent = (status.logs || []).join("\n");
 
                     // Render assignments returned by backend into the HTML table.

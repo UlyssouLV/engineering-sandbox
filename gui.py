@@ -41,6 +41,7 @@ class Api:
         self._is_running: bool = False
         self.login_event = threading.Event()
         self._assignments: list[dict] = []
+        self._login_required: bool = False
 
 
     def ping(self):
@@ -55,6 +56,7 @@ class Api:
         self._logs.clear()
         self._is_running = True
         self._logs.append("Starting sync…")
+        self._login_required = False
 
         t = threading.Thread(target=self._sync_worker, daemon=True)
         t.start()
@@ -62,7 +64,12 @@ class Api:
     
     def get_status(self) -> dict:
         # Returns current state + accumulated logs for the frontend (polling).
-        return {"running": self._is_running, "logs": self._logs, "assignments": self._assignments}
+        return {
+            "running": self._is_running,
+            "logs": self._logs,
+            "assignments": self._assignments,
+            "login_required": self._login_required,
+        }
     
     def _sync_worker(self) -> None:
         # Background worker that runs the existing backend workflow.
@@ -79,6 +86,8 @@ class Api:
             self._is_running = False
 
     def confirm_login(self):    # Called from the GUI when the user confirms login (e.g., after 2FA). This unblocks the backend workflow waiting for authentication.
+        #User confirmed login (e.g. 2FA finished),
+        self._login_required = False
         self.login_event.set()
         return "Login confirmed"
     

@@ -82,6 +82,8 @@ def login(page: Page) -> None:
         # Waits for GUI confirmation instead of terminal input.
         # The event is triggered from the HTML interface via pywebview.
         from gui import api_instance  # we'll expose this instance
+        # Signal the GUI that user confirmation is required (2FA / interactive login).
+        api_instance._login_required = True
         api_instance.login_event.wait()
         """
         The F2A verification can't be made automatically (Guess it's good news :)

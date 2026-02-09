@@ -10,16 +10,15 @@ assignees: ''
 # Context
 
 ## Why (= the problem)
-One or more sentences to explain the what's wrong
+We often forget to drop off homeworks
 
 ## What (= the solution)
-One or more sentences to explain what _could_ solve the problem
+Automated app that will drop off for you your homework if you didn't do it.
 
 # Scope
 ## How (= the magic behind the solution)
-- Fat-marker sketch 
-- Architecture diagram
-- Trade-offs
+Using playwright python lib => Scritped browser
 
 ## When (= time estimation)
+Tuesday 10th of October 2026
 -

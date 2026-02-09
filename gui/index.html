@@ -7,6 +7,16 @@
 
     <body>  
         <h1>Never be late</h1>
+        <!-- Button used to test communication between the HTML interface and the Python backend -->
+        <button onclick="testAPI()">Tester Python</button>
+
+        <script>
+            // GUI addition: calls a Python method via pywebview API
+            async function testAPI(params) {
+                const result = await window.pywebview.api.ping();
+                alert(result);
+            }
+        </script>
     </body>
 
 </html>

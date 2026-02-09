@@ -27,6 +27,18 @@ def run_server():
 
 
 
+"""
+Expose Python functions to the HTML interface through pywebview.
+Methods defined here can be called from JavaScript using :
+    window.pywebview.api.<method>()
+This is the bridge between the GUI and backend logic."""
+
+class Api:
+    def ping(self):
+        #simple connectivity test between the GUI (JS) and Python backend.
+        return "python connecté 👍"
+    
+
 def main():
 
     """
@@ -41,6 +53,7 @@ def main():
     webview.create_window(
         "Never be late",
         url=f"http://127.0.0.1:{PORT}/index.html",
+        js_api=Api(),                                   # Expose Python API to the HTML/JS interface
         width=800,
         height=500,
         resizable=True,

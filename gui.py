@@ -39,6 +39,7 @@ class Api:
     def __init__(self):
         self._logs: list[str] = []
         self._is_running: bool = False
+        self.login_event = threading.Event()
 
     def ping(self):
         #simple connectivity test between the GUI (JS) and Python backend.
@@ -73,6 +74,10 @@ class Api:
             self._logs.append(traceback.format_exc())
         finally:
             self._is_running = False
+
+    def confirm_login(self):    # Called from the GUI when the user confirms login (e.g., after 2FA). This unblocks the backend workflow waiting for authentication.
+        self.login_event.set()
+        return "Login confirmed"
     
 
 def main():
@@ -86,10 +91,13 @@ def main():
     time.sleep(0.5)
     print("2. Serveur prêt, création fenêtre...", flush=True)
 
+    # Global API instance used by backend modules (e.g., login.py)
+    api_instance = Api()
+
     webview.create_window(
         "Never be late",
         url=f"http://127.0.0.1:{PORT}/index.html",
-        js_api=Api(),                                   # Expose Python API to the HTML/JS interface
+        js_api=api_instance,                            # Expose Python API to the HTML/JS interface
         width=800,
         height=500,
         resizable=True,

@@ -48,10 +48,12 @@
                 }, 500);
             }
 
-            // GUI addition: placeholder confirmation for login completion
+            // GUI addition: sends login confirmation signal to Python backend
             async function confirmLogin() {
-                alert("Login confirmed (placeholder)");
+                const result = await window.pywebview.api.confirm_login();
+                alert(result);
             }
+
 
         </script>
     </body>

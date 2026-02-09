@@ -79,12 +79,10 @@ def login(page: Page) -> None:
         else:
             raise RuntimeError("The next button is not present on the page.")
 
-        """# === GUI COMPATIBILITY ADDITION ===
-        # Waiting for user validation handled by the GUI instead of terminal input.
-        # This avoids blocking the application when running with pywebview."""
-        from time import sleep
-        sleep(10)  # Temporary placeholder: will be replaced by GUI confirmation signal
-
+        # Waits for GUI confirmation instead of terminal input.
+        # The event is triggered from the HTML interface via pywebview.
+        from gui import api_instance  # we'll expose this instance
+        api_instance.login_event.wait()
         """
         The F2A verification can't be made automatically (Guess it's good news :)
         Because Outlook is sending pop up or wants to write a number
